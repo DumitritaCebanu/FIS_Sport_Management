@@ -29,8 +29,4 @@ public class User {
                 Objects.equals(password, users.password);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(username, password);
-    }
 }
