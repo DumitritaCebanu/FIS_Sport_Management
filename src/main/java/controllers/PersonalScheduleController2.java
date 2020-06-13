@@ -183,8 +183,8 @@ public class PersonalScheduleController2 implements Initializable {
             JSONParser parser = new JSONParser();
             JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/client2_tabel.json"));
 
+            //sterge prin iterator
             Iterator<Object> iter = jsonArray.iterator();
-
             while (iter.hasNext()) {
                 JSONObject jo = (JSONObject) iter.next();
                 if(jo.get("Training").equals(match1) && jo.get("Time").equals(match3) && jo.get("Day").equals(match2))
