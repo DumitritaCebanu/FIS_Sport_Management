@@ -20,8 +20,9 @@ import java.util.Objects;
 import java.util.StringTokenizer;
 
 public class LoginController {
-    public Text LoginMessage;
 
+    public Text LoginMessage;
+    public static String verify = "";
 
     @FXML
     private TextField usernameField;
@@ -49,13 +50,14 @@ public class LoginController {
 
             String un = usernameField.getText();
             String pw = passwordField.getText();
-            String end = un.substring(un.length() - 3);
+            String client = un.substring(un.length() - 3);
+            verify = un.substring(un.length() - 4);
 
             JSONParser parser = new JSONParser();
             Object obj = null;
 
             try {
-                obj = parser.parse(new FileReader("C:\\Users\\user\\Desktop\\CTI_an II\\sem.II_2020\\Fundamente_Inginerie_Software\\proiect\\sportManagement\\src\\main\\resources\\users.json"));
+                obj = parser.parse(new FileReader("src/main/resources/users.json"));
             } catch (IOException | ParseException exception) {
                 exception.printStackTrace();
             }
@@ -78,7 +80,7 @@ public class LoginController {
                 if (username.equals(un) && password.equals(pw)) {
                     Stage appStage = (Stage) LoginButton.getScene().getWindow();
                     Parent root;
-                    if (end.equals("clt"))
+                    if (client.equals("clt"))
                         try {
                             root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxmlFiles/homescreen.fxml")));
                             Scene scene = new Scene(root);
@@ -87,9 +89,9 @@ public class LoginController {
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         }
-                    else if (end.equals("adm"))
+                    else if (client.equals("adm"))
                         try {
-                            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxmlFiles/personalSchedule.fxml")));
+                            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxmlFiles/AdminHomeScreen.fxml")));
                             Scene scene = new Scene(root);
                             appStage.setScene(scene);
                             appStage.show();
