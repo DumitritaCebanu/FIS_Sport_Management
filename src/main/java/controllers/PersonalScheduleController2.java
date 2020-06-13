@@ -25,8 +25,7 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-
-public class PersonalScheduleController implements Initializable {
+public class PersonalScheduleController2 implements Initializable {
 
     public VBox Vbox;
     public Label text;
@@ -61,7 +60,6 @@ public class PersonalScheduleController implements Initializable {
     @FXML
     private Button returnButton;
 
-    @lombok.SneakyThrows
 
     @Override
     public void initialize(URL location, ResourceBundle rb) {
@@ -98,7 +96,7 @@ public class PersonalScheduleController implements Initializable {
         JSONArray array = new JSONArray();
 
         try{
-            FileReader readFile = new FileReader("src/main/resources/client1_tabel.json");
+            FileReader readFile = new FileReader("src/main/resources/client2_tabel.json");
             BufferedReader buffread = new BufferedReader(readFile);
             obj = parser.parse(buffread);
             if(obj instanceof JSONArray){
@@ -122,9 +120,9 @@ public class PersonalScheduleController implements Initializable {
         JSONParser parser = new JSONParser();
         JSONArray list = new JSONArray();
 
-    //Copiere continut deja existent cu Parser
+        //Copiere continut deja existent cu Parser
         try{
-            FileReader readFile = new FileReader("src/main/resources/client1_tabel.json");
+            FileReader readFile = new FileReader("src/main/resources/client2_tabel.json");
             BufferedReader read = new BufferedReader(readFile);
             p = parser.parse(read);
             if(p instanceof JSONArray)
@@ -134,15 +132,15 @@ public class PersonalScheduleController implements Initializable {
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
-    //Adauga datele
+        //Adauga datele
         obj.put("Day",dayInput.getText());
         obj.put("Training",trainingInput.getText());
         obj.put("Time",timeInput.getText());
         list.add(obj);
 
-    //Scriere in fisier
+        //Scriere in fisier
         try{
-            File file = new File("src/main/resources/client1_tabel.json");
+            File file = new File("src/main/resources/client2_tabel.json");
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
             fw.write(list.toJSONString());
             fw.close();
@@ -150,12 +148,12 @@ public class PersonalScheduleController implements Initializable {
             ex.printStackTrace();
         }
 
-       //cand le adaug in fisier le arat si in tabel
+        //cand le adaug in fisier le arat si in tabel
         JSONParser parserr = new JSONParser();
         Object objj;
         JSONArray array = new JSONArray();
         try{
-            FileReader readFile = new FileReader("src/main/resources/client1_tabel.json");
+            FileReader readFile = new FileReader("src/main/resources/client2_tabel.json");
             BufferedReader buffread = new BufferedReader(readFile);
             objj = parserr.parse(buffread);
             if(objj instanceof JSONArray){
@@ -177,32 +175,33 @@ public class PersonalScheduleController implements Initializable {
     @FXML
     void handleDetele() throws IOException, ParseException {
 
-        // sterge elementele selectate din fisier
-        String match1 = trainingInput.getText();
-        String match2 = dayInput.getText();
-        String match3 = timeInput.getText();
+            // sterge elementele selectate din fisier
+            String match1 = trainingInput.getText();
+            String match2 = dayInput.getText();
+            String match3 = timeInput.getText();
 
-        JSONParser parser = new JSONParser();
-        JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/client1_tabel.json"));
+            JSONParser parser = new JSONParser();
+            JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/client2_tabel.json"));
 
-        Iterator<Object> iter = jsonArray.iterator();
+            //sterge prin iterator
+            Iterator<Object> iter = jsonArray.iterator();
+            while (iter.hasNext()) {
+                JSONObject jo = (JSONObject) iter.next();
+                if(jo.get("Training").equals(match1) && jo.get("Time").equals(match3) && jo.get("Day").equals(match2))
+                    iter.remove();
+                System.out.println(jsonArray);
+            }
+            //Scriere in fisier
+            try{
+                File file = new File("src/main/resources/client2_tabel.json");
+                FileWriter fw = new FileWriter(file.getAbsoluteFile());
+                fw.write(jsonArray.toJSONString());
+                fw.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
 
-        while (iter.hasNext()) {
-            JSONObject jo = (JSONObject) iter.next();
-            if(jo.get("Training").equals(match1) && jo.get("Time").equals(match3) && jo.get("Day").equals(match2))
-                iter.remove();
-            System.out.println(jsonArray);
-             }
-        //Scriere in fisier
-        try{
-            File file = new File("src/main/resources/client1_tabel.json");
-            FileWriter fw = new FileWriter(file.getAbsoluteFile());
-            fw.write(jsonArray.toJSONString());
-            fw.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
         }
-    }
 
     //return to the previous scene
     @FXML
