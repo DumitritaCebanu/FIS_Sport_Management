@@ -116,7 +116,7 @@ public class PersonalScheduleController implements Initializable {
 
     //Adauga datele din Textfield in .JSON
     @FXML
-    public void AddEvent(){
+     void AddEvent(){
         JSONObject obj = new JSONObject();
         Object p;
         JSONParser parser = new JSONParser();
@@ -202,11 +202,12 @@ public class PersonalScheduleController implements Initializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+
     }
 
     //return to the previous scene
     @FXML
-    void handleActionButton(ActionEvent event) throws IOException {
+    public void handleActionButton(ActionEvent event) throws IOException {
         Parent viewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxmlFiles/homescreen.fxml")));
         Scene viewScene = new Scene(viewParent);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
