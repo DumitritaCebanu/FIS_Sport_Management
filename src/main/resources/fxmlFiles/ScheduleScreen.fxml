@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="631.0" prefWidth="831.0" style="-fx-background-color: #262926;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ScheduleControler">
+    <children>
+        <AnchorPane layoutY="-16.0" prefHeight="82.0" prefWidth="831.0" style="-fx-background-color: #1c6946;">
+            <children>
+                <Label layoutX="337.0" layoutY="22.0" prefHeight="37.0" prefWidth="196.0" text="Schedule Screen" textFill="#f2e6e6">
+                    <font>
+                        <Font name="Book Antiqua" size="24.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <TableView fx:id="tableView" layoutY="66.0" prefHeight="370.0" prefWidth="831.0">
+            <columns>
+                <TableColumn fx:id="TimpColumn" prefWidth="100.33334350585938" text="Time" />
+                <TableColumn fx:id="LuniColumn" prefWidth="100.66665649414062" text="Luni" />
+                <TableColumn fx:id="MartiColumn" prefWidth="98.66665649414062" text="Marti" />
+                <TableColumn fx:id="MiercuriColumn" prefWidth="118.33334350585938" text="Miercuri" />
+                <TableColumn fx:id="JoiColumn" prefWidth="99.33331298828125" text="Joi" />
+                <TableColumn fx:id="VineriColumn" prefWidth="107.3333740234375" text="Vineri" />
+                <TableColumn fx:id="SambataColumn" prefWidth="104.6666259765625" text="Sambata" />
+                <TableColumn fx:id="DuminicaColumn" prefWidth="97.33331298828125" text="Duminica" />
+            </columns>
+        </TableView>
+        <HBox layoutX="7.0" layoutY="459.0" prefHeight="25.0" prefWidth="417.0" spacing="10.0">
+            <children>
+                <Button lineSpacing="10.0" mnemonicParsing="false" onAction="#GoBackActionButton" prefHeight="25.0" prefWidth="124.0" text="Go to Client List" />
+                <Button mnemonicParsing="false" onAction="#DBschedule" prefHeight="25.0" prefWidth="101.0" text="Delete" />
+                <Button mnemonicParsing="false" onAction="#AddToSchedule" prefHeight="25.0" prefWidth="105.0" text="Add" />
+            </children>
+        </HBox>
+        <HBox layoutX="9.0" layoutY="514.0" prefHeight="37.0" prefWidth="813.0" spacing="10.0">
+            <children>
+                <TextField fx:id="TimeTextField" prefHeight="25.0" prefWidth="106.0" promptText="Ora" />
+                <TextField fx:id="LuniTextField" prefHeight="25.0" prefWidth="106.0" promptText="Luni" />
+                <TextField fx:id="MartiTextField" prefHeight="25.0" prefWidth="104.0" promptText="Marti" />
+                <TextField fx:id="MiercuriTextField" prefHeight="25.0" prefWidth="106.0" promptText="Miercuri" />
+                <TextField fx:id="JoiTextField" prefHeight="25.0" prefWidth="110.0" promptText="Joi" />
+            </children>
+        </HBox>
+        <HBox layoutX="9.0" layoutY="563.0" prefHeight="37.0" prefWidth="484.0" spacing="10.0">
+            <children>
+                <TextField fx:id="VineriTextField" prefHeight="25.0" prefWidth="119.0" promptText="Vineri" />
+                <TextField fx:id="SambataTextField" prefHeight="25.0" prefWidth="116.0" promptText="Sambata" />
+                <TextField fx:id="DuminicaTextField" prefHeight="25.0" prefWidth="114.0" promptText="Duminica" />
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

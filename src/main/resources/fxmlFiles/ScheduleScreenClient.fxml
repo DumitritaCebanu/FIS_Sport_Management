@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="508.0" prefWidth="831.0" style="-fx-background-color: #262926;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ScheduleControlerClient">
+    <children>
+        <AnchorPane layoutY="-16.0" prefHeight="82.0" prefWidth="831.0" style="-fx-background-color: #1c6946;">
+            <children>
+                <Label layoutX="337.0" layoutY="22.0" prefHeight="37.0" prefWidth="196.0" text="Schedule Screen" textFill="#f2e6e6">
+                    <font>
+                        <Font name="Book Antiqua" size="24.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <TableView fx:id="tableView" layoutY="66.0" prefHeight="370.0" prefWidth="831.0">
+            <columns>
+                <TableColumn fx:id="TimpColumn" prefWidth="100.33334350585938" text="Time" />
+                <TableColumn fx:id="LuniColumn" prefWidth="100.66665649414062" text="Luni" />
+                <TableColumn fx:id="MartiColumn" prefWidth="98.66665649414062" text="Marti" />
+                <TableColumn fx:id="MiercuriColumn" prefWidth="118.33334350585938" text="Miercuri" />
+                <TableColumn fx:id="JoiColumn" prefWidth="99.33331298828125" text="Joi" />
+                <TableColumn fx:id="VineriColumn" prefWidth="107.3333740234375" text="Vineri" />
+                <TableColumn fx:id="SambataColumn" prefWidth="104.6666259765625" text="Sambata" />
+                <TableColumn fx:id="DuminicaColumn" prefWidth="97.33331298828125" text="Duminica" />
+            </columns>
+        </TableView>
+        <HBox layoutX="7.0" layoutY="459.0" prefHeight="25.0" prefWidth="417.0" spacing="10.0">
+            <children>
+                <Button lineSpacing="10.0" mnemonicParsing="false" onAction="#GoBackSChButton" prefHeight="25.0" prefWidth="124.0" text="Go to Client List" />
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

@@ -22,6 +22,7 @@ public class Main extends Application {
         File from_clientiTabel = new File("src/main/resources/clientTabel.json").getAbsoluteFile();
         File from_client1Tabel = new File("src/main/resources/client1_tabel.json").getAbsoluteFile();
         File from_client2Tabel = new File("src/main/resources/client2_tabel.json").getAbsoluteFile();
+        File from_bigSchedulr = new File("src/main/resources/bigSchedule.json").getAbsoluteFile();
 
         File to = new File("target\\src\\main\\resources");
         try{
@@ -29,6 +30,7 @@ public class Main extends Application {
             copyPath(from_clientiTabel, to);
             copyPath(from_client1Tabel, to);
             copyPath(from_client2Tabel, to);
+            copyPath(from_bigSchedulr,to);
             System.out.println("Files copied successfully");
         }catch (IOException e){
             e.printStackTrace();
