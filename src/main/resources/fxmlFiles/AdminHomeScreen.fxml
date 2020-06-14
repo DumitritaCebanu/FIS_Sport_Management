@@ -16,10 +16,10 @@
             <children>
                 <TableView fx:id="tableView" prefHeight="329.0" prefWidth="602.0">
                     <columns>
-                        <TableColumn fx:id="Clientid" onEditCommit="#clicktochangeclient" prefWidth="124.0" text="NumeClient" />
-                        <TableColumn fx:id="SportChoise" onEditCommit="#clicktochangesport" prefWidth="157.3333740234375" text="The Type of the Sport" />
-                        <TableColumn fx:id="WeekList" minWidth="0.0" onEditCommit="#clicktochangeweek" prefWidth="175.6666259765625" text="The Day of the Week" />
-                        <TableColumn fx:id="Time" onEditCommit="#clicktochangeTime" prefWidth="147.66668701171875" text="Time" />
+                        <TableColumn fx:id="Clientid" prefWidth="124.0" text="NumeClient" />
+                        <TableColumn fx:id="SportChoise" prefWidth="157.3333740234375" text="The Type of the Sport" />
+                        <TableColumn fx:id="WeekList" minWidth="0.0" prefWidth="175.6666259765625" text="The Day of the Week" />
+                        <TableColumn fx:id="Time" prefWidth="147.66668701171875" text="Time" />
                     </columns>
                 </TableView>
                 <HBox prefHeight="90.0" prefWidth="602.0" spacing="10.0">
@@ -45,6 +45,7 @@
             <children>
                 <Button mnemonicParsing="false" onAction="#pushButtonforClient" text="Add new client" />
                 <Button mnemonicParsing="false" onAction="#deleteclientbutton" text="Delete new person" />
+            <Button mnemonicParsing="false" onAction="#GoBackButton" text="Go Back" />
             </children>
         </VBox>
     </children>

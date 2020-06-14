@@ -1,11 +1,18 @@
 package controllers;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.StringTokenizer;
 
@@ -48,28 +55,7 @@ public class AMSControler implements Initializable {
 
 
 
-    public void clicktochangeclient(CellEditEvent edittcell) {
-        Client clientClick = tableView.getSelectionModel().getSelectedItem();
-        clientClick.setClientName(edittcell.getNewValue().toString());
 
-    }
-
-    public void clicktochangesport(CellEditEvent edittcell) {
-        Client clientClick = tableView.getSelectionModel().getSelectedItem();
-        clientClick.setSportType(edittcell.getNewValue().toString());
-
-    }
-
-    public void clicktochangeweek(CellEditEvent edittcell) {
-        Client clientClick = tableView.getSelectionModel().getSelectedItem();
-        clientClick.setWeekday(edittcell.getNewValue().toString());
-
-    }
-
-    public void clicktochangeTime(CellEditEvent edittcell) {
-        Client clientClick = tableView.getSelectionModel().getSelectedItem();
-        clientClick.setClientTime(edittcell.getNewValue().toString());
-    }
 
     public void pushButtonforClient() {
         JSONObject objc = new JSONObject();
@@ -145,31 +131,53 @@ public class AMSControler implements Initializable {
             e.printStackTrace();
         }
         for (JSONObject tabel : (Iterable<JSONObject>) array) {
-            Client ct = new Client((String) ((JSONObject) tabel).get("Client"), (String) ((JSONObject) tabel).get("Sport"), (String) ((JSONObject) tabel).get("WeekDay"), (String) ((JSONObject) tabel).get("Time"));
+            Client ct = new Client((String) ((JSONObject) tabel).get("Client"),
+                    (String) ((JSONObject) tabel).get("Sport"), (String) ((JSONObject) tabel).get("WeekDay"),
+                    (String) ((JSONObject) tabel).get("Time"));
             tableView.getItems().add(ct);
         }
 
     }
 
 
-    public void deleteclientbutton() {
-        ObservableList<Client> clientRows, allRows;
-        allRows = tableView.getItems();
-        clientRows = tableView.getSelectionModel().getSelectedItems();
-        for (Client client : clientRows) {
-            allRows.remove(client);
+    public void deleteclientbutton() throws IOException, ParseException  {
+        String s1 = Clientid.getText();
+        String s2 = SportChoise.getText();
+        String s3 = WeekList.getText();
+        String s4 = Time.getText();
+
+        JSONParser parser = new JSONParser();
+        JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/clientTabel.json"));
+
+        Iterator<Object> i = jsonArray.iterator();
+
+        while (i.hasNext()) {
+            JSONObject jc = (JSONObject) i.next();
+            if(jc.get("Client").equals(s1) && jc.get("Sport").equals(s2) && jc.get("WeekDay").equals(s3)
+                && jc.get("Time").equals(s4));
+            i.remove();
+            //System.out.println(jsonArray);
+        }
+
+        try{
+            File file = new File("src/main/resources/clientTabel.json");
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            fw.write(jsonArray.toJSONString());
+            fw.close();
+            fw.flush();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
 
+    public void GoBackButton(ActionEvent event) throws IOException {
+        Parent viewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxmlFiles/MainPage.fxml")));
+        Scene viewScene = new Scene(viewParent);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-/*
-    public ObservableList<Client> getClients(){
-        ObservableList<Client> clienti= FXCollections.observableArrayList();
-        clienti.add(new Client("Rosu Petru","Box","Luni","8:30-10:30"));
-        clienti.add(new Client("Borack Obama","Power Lifting","Luni","11:45-14:45"));
-        return clienti;
+        window.setScene(viewScene);
+        window.show();
     }
 
-}*/
 }

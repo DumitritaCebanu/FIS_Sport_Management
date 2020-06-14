@@ -26,7 +26,7 @@ public class HomescreenController implements Initializable {
 // deschide pagina cu orarul principal
     @FXML
     void accesButton(ActionEvent event) throws IOException {
-        Parent viewParent  = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxmlFiles/Mainschedule.fxml")));
+        Parent viewParent  = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxmlFiles/ScheduleScreenClient.fxml")));
         Scene viewScene = new Scene(viewParent);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(viewScene);

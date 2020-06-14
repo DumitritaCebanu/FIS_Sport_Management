@@ -26,21 +26,20 @@ public class MainPControlers implements Initializable {
     @FXML
 
     void AMSButton(ActionEvent event) throws IOException {
-        Parent viewParent  = FXMLLoader.load(getClass().getResource("/fxmlFiles/AdminHomeScreen.fxml"));
+        Parent viewParent  = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxmlFiles/AdminHomeScreen.fxml")));
         Scene viewScene = new Scene(viewParent);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(viewScene);
         window.show();
     }
 
-
+@FXML
     void MPButton(ActionEvent event) throws IOException {
-        Parent viewParent = FXMLLoader.load(getClass().getResource("/resources/BigSchedule.fxml"));
-        Scene viewScene = new Scene(viewParent);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(viewScene);
-        window.show();
+    Parent viewParent  = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxmlFiles/ScheduleScreen.fxml")));
+    Scene viewScene = new Scene(viewParent);
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    window.setScene(viewScene);
+    window.show();
 
     }
 }

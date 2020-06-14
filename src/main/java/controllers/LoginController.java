@@ -91,7 +91,7 @@ public class LoginController {
                         }
                     else if (client.equals("adm"))
                         try {
-                            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxmlFiles/AdminHomeScreen.fxml")));
+                            root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxmlFiles/MainPage.fxml")));
                             Scene scene = new Scene(root);
                             appStage.setScene(scene);
                             appStage.show();

@@ -24,7 +24,7 @@
                 <TextField fx:id="dayInput" opacity="0.8" prefHeight="26.0" prefWidth="59.0" promptText="Day" />
                 <TextField fx:id="trainingInput" opacity="0.8" prefHeight="26.0" prefWidth="91.0" promptText="Training" />
                 <TextField fx:id="timeInput" opacity="0.8" prefHeight="26.0" prefWidth="89.0" promptText="00:00-00:00" />
-                <Button fx:id="AddButton" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.8" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #223b11;" text="Add" textFill="WHITE">
+                <Button fx:id="AddButton" mnemonicParsing="false" onAction="#handleActionButton" opacity="0.8" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #223b11;" text="Add" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
@@ -34,11 +34,7 @@
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Button>
-                <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveEvent" opacity="0.8" prefHeight="26.0" prefWidth="53.0" style="-fx-background-color: #223b11;" text="Save" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                </Button>
+
             </HBox>
         </VBox>
         <Button fx:id="returnButton" layoutX="547.0" layoutY="294.0" mnemonicParsing="false" onAction="#handleActionButton" opacity="0.8" prefHeight="26.0" prefWidth="54.0" style="-fx-background-color: #223b11;" text="Back" textFill="WHITE">
