@@ -11,7 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -23,7 +22,9 @@ public class HomescreenController implements Initializable {
     public Button accesSchedule;
     public Button accesPersonalSchedule;
 
-// deschide pagina cu orarul principal
+
+
+    // deschide pagina cu orarul principal
     @FXML
     void accesButton(ActionEvent event) throws IOException {
         Parent viewParent  = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxmlFiles/ScheduleScreenClient.fxml")));
@@ -32,20 +33,37 @@ public class HomescreenController implements Initializable {
         window.setScene(viewScene);
         window.show();
     }
-// deschide pagina cu orarul clientului
+
+
+    // deschide pagina cu orarul clientuluia
     @FXML
-    void handleActionButton(ActionEvent event) throws IOException {
-        Parent viewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxmlFiles/personalSchedule.fxml")));
-        Scene viewScene = new Scene(viewParent);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    void handleActionButton() {
+        if (LoginController.verify.equals("9clt"))
+            try {
+                Parent viewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxmlFiles/personalSchedule.fxml")));
+                Scene viewScene = new Scene(viewParent);
+                Stage window = (Stage) accesPersonalSchedule.getScene().getWindow();
 
-        window.setScene(viewScene);
-        window.show();
+                window.setScene(viewScene);
+                window.show();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        else if (LoginController.verify.equals("4clt"))
+            try {
+                Parent viewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxmlFiles/personalSchedule2.fxml")));
+                Scene viewScene = new Scene(viewParent);
+                Stage window = (Stage) accesPersonalSchedule.getScene().getWindow();
 
+                window.setScene(viewScene);
+                window.show();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 }
