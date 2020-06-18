@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -25,9 +26,8 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-
 public class PersonalScheduleController implements Initializable {
-
+    public Text DeleteMessage;
     public VBox Vbox;
     public Label text;
     public HBox HBox;
@@ -60,8 +60,6 @@ public class PersonalScheduleController implements Initializable {
     private Button DeleteButton;
     @FXML
     private Button returnButton;
-
-    @lombok.SneakyThrows
 
     @Override
     public void initialize(URL location, ResourceBundle rb) {
@@ -116,7 +114,7 @@ public class PersonalScheduleController implements Initializable {
 
     //Adauga datele din Textfield in .JSON
     @FXML
-     void AddEvent(){
+     void AddEvent() {
         JSONObject obj = new JSONObject();
         Object p;
         JSONParser parser = new JSONParser();
@@ -134,38 +132,40 @@ public class PersonalScheduleController implements Initializable {
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
+
     //Adauga datele
-        obj.put("Day",dayInput.getText());
-        obj.put("Training",trainingInput.getText());
-        obj.put("Time",timeInput.getText());
+        obj.put("Day", dayInput.getText());
+        obj.put("Training", trainingInput.getText());
+        obj.put("Time", timeInput.getText());
         list.add(obj);
 
-    //Scriere in fisier
-        try{
-            File file = new File("src/main/resources/client1_tabel.json");
-            FileWriter fw = new FileWriter(file.getAbsoluteFile());
-            fw.write(list.toJSONString());
-            fw.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        //Scriere in fisier
+            try {
+                File file = new File("src/main/resources/client1_tabel.json");
+                FileWriter fw = new FileWriter(file.getAbsoluteFile());
+                fw.write(list.toJSONString());
+                fw.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
 
-       //cand le adaug in fisier le arat si in tabel
+        //cand le adaug in fisier le arat si in tabel
         JSONParser parserr = new JSONParser();
         Object objj;
         JSONArray array = new JSONArray();
-        try{
+        try {
             FileReader readFile = new FileReader("src/main/resources/client1_tabel.json");
             BufferedReader buffread = new BufferedReader(readFile);
             objj = parserr.parse(buffread);
-            if(objj instanceof JSONArray){
+            if (objj instanceof JSONArray) {
                 array = (JSONArray) objj;
             }
         } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
+
         //Arata in tabel trainigul adaugat
-        Table details = new Table((String) ((JSONObject) array.get(array.size()-1)).get("Day"), (String) ((JSONObject)array.get(array.size()-1)).get("Training"), (String) ((JSONObject) array.get(array.size()-1)).get("Time"));
+        Table details = new Table((String) ((JSONObject) array.get(array.size() - 1)).get("Day"), (String) ((JSONObject) array.get(array.size() - 1)).get("Training"), (String) ((JSONObject) array.get(array.size() - 1)).get("Time"));
         TableView.getItems().add(details);
 
         dayInput.clear();
@@ -191,8 +191,9 @@ public class PersonalScheduleController implements Initializable {
             JSONObject jo = (JSONObject) iter.next();
             if(jo.get("Training").equals(match1) && jo.get("Time").equals(match3) && jo.get("Day").equals(match2))
                 iter.remove();
-            System.out.println(jsonArray);
+            DeleteMessage.setText("Training deleted! Please go back and return to see the changes");
              }
+
         //Scriere in fisier
         try{
             File file = new File("src/main/resources/client1_tabel.json");
@@ -203,8 +204,12 @@ public class PersonalScheduleController implements Initializable {
             ex.printStackTrace();
         }
 
-    }
+        dayInput.clear();
+        trainingInput.clear();
+        timeInput.clear();
 
+    }
+    
     //return to the previous scene
     @FXML
     public void handleActionButton(ActionEvent event) throws IOException {

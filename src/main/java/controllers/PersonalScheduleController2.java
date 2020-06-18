@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -26,7 +27,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class PersonalScheduleController2 implements Initializable {
-
+    public Text DeleteMessage;
     public VBox Vbox;
     public Label text;
     public HBox HBox;
@@ -107,7 +108,7 @@ public class PersonalScheduleController2 implements Initializable {
         }
         //Shows in tabel data from .json
         for (JSONObject detailes : (Iterable<JSONObject>) array){
-            Table details = new Table((String) ((JSONObject) detailes).get("Day"), (String) ((JSONObject) detailes).get("Training"), (String) ((JSONObject) detailes).get("Time"));
+            Table details = new Table((String) ((JSONObject) detailes).get("Day"), (String) ((JSONObject) detailes).get("Training"), (String) detailes.get("Time"));
             TableView.getItems().add(details);
         }
     }
@@ -132,6 +133,7 @@ public class PersonalScheduleController2 implements Initializable {
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
+
         //Adauga datele
         obj.put("Day",dayInput.getText());
         obj.put("Training",trainingInput.getText());
@@ -162,6 +164,7 @@ public class PersonalScheduleController2 implements Initializable {
         } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
+
         //Arata in tabel trainigul adaugat
         Table details = new Table((String) ((JSONObject) array.get(array.size()-1)).get("Day"), (String) ((JSONObject)array.get(array.size()-1)).get("Training"), (String) ((JSONObject) array.get(array.size()-1)).get("Time"));
         TableView.getItems().add(details);
@@ -175,33 +178,38 @@ public class PersonalScheduleController2 implements Initializable {
     @FXML
     void handleDetele() throws IOException, ParseException {
 
-            // sterge elementele selectate din fisier
-            String match1 = trainingInput.getText();
-            String match2 = dayInput.getText();
-            String match3 = timeInput.getText();
+        // sterge elementele selectate din fisier
+        String match1 = trainingInput.getText();
+        String match2 = dayInput.getText();
+        String match3 = timeInput.getText();
 
-            JSONParser parser = new JSONParser();
-            JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/client2_tabel.json"));
+        JSONParser parser = new JSONParser();
+        JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/client2_tabel.json"));
 
-            //sterge prin iterator
-            Iterator<Object> iter = jsonArray.iterator();
-            while (iter.hasNext()) {
-                JSONObject jo = (JSONObject) iter.next();
-                if(jo.get("Training").equals(match1) && jo.get("Time").equals(match3) && jo.get("Day").equals(match2))
-                    iter.remove();
-                System.out.println(jsonArray);
-            }
-            //Scriere in fisier
-            try{
-                File file = new File("src/main/resources/client2_tabel.json");
-                FileWriter fw = new FileWriter(file.getAbsoluteFile());
-                fw.write(jsonArray.toJSONString());
-                fw.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+        Iterator<Object> iter = jsonArray.iterator();
 
+        while (iter.hasNext()) {
+            JSONObject jo = (JSONObject) iter.next();
+            if(jo.get("Training").equals(match1) && jo.get("Time").equals(match3) && jo.get("Day").equals(match2))
+                iter.remove();
+            DeleteMessage.setText("Training deleted! Please go back and return to see the changes");
         }
+
+        //Scriere in fisier
+        try{
+            File file = new File("src/main/resources/client2_tabel.json");
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            fw.write(jsonArray.toJSONString());
+            fw.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        dayInput.clear();
+        trainingInput.clear();
+        timeInput.clear();
+
+    }
 
     //return to the previous scene
     @FXML
