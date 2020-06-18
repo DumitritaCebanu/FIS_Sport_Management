@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #223b11;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PersonalScheduleController">
-    <AnchorPane layoutY="76.0" prefHeight="324.0" prefWidth="624.0" style="-fx-background-color: white;">
+    <AnchorPane layoutY="77.0" prefHeight="322.0" prefWidth="624.0" style="-fx-background-color: white;">
         <VBox fx:id="Vbox" layoutX="95.0" layoutY="16.0" prefHeight="303.0" prefWidth="433.0">
             <TableView fx:id="TableView" prefHeight="283.0" prefWidth="434.0">
                 <columns>
@@ -22,8 +22,8 @@
                 </columns>
             </TableView>
             <HBox fx:id="HBox" alignment="CENTER" prefHeight="29.0" prefWidth="434.0">
-                <TextField fx:id="dayInput" opacity="0.8" prefHeight="26.0" prefWidth="59.0" promptText="Day" />
-                <TextField fx:id="trainingInput" opacity="0.8" prefHeight="26.0" prefWidth="91.0" promptText="Training" />
+                <TextField fx:id="dayInput" opacity="0.8" prefHeight="26.0" prefWidth="120.0" promptText="Day" />
+                <TextField fx:id="trainingInput" opacity="0.8" prefHeight="26.0" prefWidth="138.0" promptText="Training" />
                 <TextField fx:id="timeInput" opacity="0.8" prefHeight="26.0" prefWidth="89.0" promptText="00:00-00:00" />
                 <Button fx:id="AddButton" mnemonicParsing="false" onAction="#handleActionButton" opacity="0.8" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: #223b11;" text="Add" textFill="WHITE">
                     <font>
@@ -49,5 +49,5 @@
             <Font name="Forte" size="40.0" />
         </font>
     </Label>
-   <Text fx:id="ErrorMessage" layoutX="135.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="326.13671875" />
+   <Text fx:id="DeleteMessage" fill="WHITE" layoutX="18.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="591.7367858886719" />
 </AnchorPane>
