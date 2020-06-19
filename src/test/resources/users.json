@@ -1,0 +1,33 @@
+[
+  {
+    "User" : "Client1",
+    "Credentials" : [
+      "Username : hero234clt",
+      "Password : client1"
+    ]
+  },
+
+  {
+    "User" : "Admin1",
+    "Credentials" : [
+      "Username : aaa3adm",
+      "Password : asd123"
+    ]
+  },
+
+  {
+    "User" : "Client2",
+    "Credentials" : [
+      "Username : aws9clt",
+      "Password : aws999"
+    ]
+  },
+
+  {
+    "User" : "Admin2",
+    "Credentials" : [
+      "Username : god89adm",
+      "Password : god899"
+    ]
+  }
+]
