@@ -31,7 +31,7 @@ public class LoginController {
     private PasswordField passwordField;
 
     @FXML
-    private Button LoginButton;
+    public Button LoginButton;
 
 
     @FXML
@@ -45,7 +45,7 @@ public class LoginController {
         });
     }
     @FXML
-    public void handleLoginButtonAction() throws ParseException, IOException {
+    public boolean handleLoginButtonAction() throws ParseException, IOException {
         LoginButton.setOnAction(event -> {
 
             String un = usernameField.getText();
@@ -53,15 +53,7 @@ public class LoginController {
             String client = un.substring(un.length() - 3);
             verify = un.substring(un.length() - 4);
 
-            JSONParser parser = new JSONParser();
-            Object obj = null;
-
-            try {
-                obj = parser.parse(new FileReader("src/main/resources/users.json"));
-            } catch (IOException | ParseException exception) {
-                exception.printStackTrace();
-            }
-            JSONArray userList = (JSONArray) obj;
+            JSONArray userList = readFile("src/main/resources/users.json");
 
             assert userList != null;
             for (Object o : userList) {
@@ -101,5 +93,20 @@ public class LoginController {
                 } else LoginMessage.setText("Log in failed, wrong credentials");
             }
         });
+        return  true;
+    }
+
+    public JSONArray readFile(String sourceFilePath){
+
+        JSONParser parser = new JSONParser();
+        Object obj = null;
+
+        try {
+            obj = parser.parse(new FileReader(sourceFilePath));
+        } catch (IOException | ParseException exception) {
+            exception.printStackTrace();
+        }
+        JSONArray userList = (JSONArray) obj;
+    return userList;
     }
 }
