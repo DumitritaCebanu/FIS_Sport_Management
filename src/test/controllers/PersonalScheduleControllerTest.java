@@ -29,7 +29,6 @@ public class PersonalScheduleControllerTest {
         controller = new PersonalScheduleController();
         controller.FilePath = "src/test/resources/client1_tabel.json";
 
-
         JFXPanel panel = new JFXPanel();
         controller.DeleteMessage = new Text();
 
