@@ -9,6 +9,7 @@
         <module name="FIS_Sport_Management_Admin" />
         <module name="SportM" />
         <module name="FIS_Aplicatie" />
+        <module name="FIS_Sport_Management_Test" />
       </profile>
     </annotationProcessing>
   </component>
