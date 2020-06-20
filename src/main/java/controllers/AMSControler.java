@@ -35,24 +35,24 @@ import java.util.ResourceBundle;
 public class AMSControler implements Initializable {
 
     @FXML
-    private TableView<Client> tableView;
+    TableView<Client> tableView;
     @FXML
-    private TableColumn<Client, String> Clientid;
+     TableColumn<Client, String> Clientid;
     @FXML
-    private TableColumn<Client, String> SportChoise;
+     TableColumn<Client, String> SportChoise;
     @FXML
-    private TableColumn<Client, String> WeekList;
+    TableColumn<Client, String> WeekList;
     @FXML
-    private TableColumn<Client, String> Time;
+   TableColumn<Client, String> Time;
     @FXML
-    private TextField ClientTextField;
+     TextField ClientTextField;
     @FXML
-    private TextField SportTypeField;
+     TextField SportTypeField;
     @FXML
-    private TextField WeekTypeField;
+     TextField WeekTypeField;
     @FXML
-    private TextField TimeTypeField;
-
+     TextField TimeTypeField;
+    public String dndpath = "src/main/resources/clientTabel.json";
 
 
 
@@ -63,7 +63,7 @@ public class AMSControler implements Initializable {
         Object or;
         JSONArray arrays = new JSONArray();
         try {
-            FileReader read = new FileReader("src/main/resources/clientTabel.json");
+            FileReader read = new FileReader(dndpath);
             BufferedReader buffer = new BufferedReader(read);
             or = parsers.parse(buffer);
             if (or instanceof JSONArray) {
@@ -81,7 +81,7 @@ public class AMSControler implements Initializable {
         arrays.add(objc);
         //try(FileWriter file = new FileWriter("C:\\Users\\Shak_al_CR\\Desktop\\FIS_Sport_Management\\src\\main\\java\\sources\\clientiTabel.json")){
         try{
-            File file = new File("src/main/resources/clientTabel.json");
+            File file = new File(dndpath);
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
             fw.write(arrays.toJSONString());
             fw.close();
@@ -121,7 +121,7 @@ public class AMSControler implements Initializable {
         JSONArray array = new JSONArray();
 
         try {
-            FileReader readFile = new FileReader("src/main/resources/clientTabel.json");
+            FileReader readFile = new FileReader(dndpath);
             BufferedReader buffer = new BufferedReader(readFile);
             obj = parser.parse(buffer);
             if (obj instanceof JSONArray) {
@@ -139,37 +139,44 @@ public class AMSControler implements Initializable {
 
     }
 
-
+    @FXML
     public void deleteclientbutton() throws IOException, ParseException  {
-        String s1 = Clientid.getText();
-        String s2 = SportChoise.getText();
-        String s3 = WeekList.getText();
-        String s4 = Time.getText();
+        String s1 = ClientTextField.getText();
+        String s2 = SportTypeField.getText();
+        String s3 = WeekTypeField.getText();
+        String s4 = TimeTypeField.getText();
 
         JSONParser parser = new JSONParser();
-        JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/clientTabel.json"));
+        JSONArray jsonArray = (JSONArray) parser.parse(new FileReader(dndpath));
+        JSONArray narr = Sterge(jsonArray,s1,s2,s3,s4);
 
-        Iterator<Object> i = jsonArray.iterator();
+    }
 
-        while (i.hasNext()) {
-            JSONObject jc = (JSONObject) i.next();
-            if(jc.get("Client").equals(s1) && jc.get("Sport").equals(s2) && jc.get("WeekDay").equals(s3)
-                && jc.get("Time").equals(s4));
-            i.remove();
-            //System.out.println(jsonArray);
-        }
-
-        try{
-            File file = new File("src/main/resources/clientTabel.json");
+    public JSONArray Scrie(JSONArray vec) {
+        try {
+            File file = new File(dndpath);
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
-            fw.write(jsonArray.toJSONString());
+            fw.write(vec.toJSONString());
             fw.close();
-            fw.flush();
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        return vec;
     }
+    public JSONArray Sterge(JSONArray vector,String c,String s,String w,String t) throws IOException {
+        Iterator<Object> i = vector.iterator();
 
+        while (i.hasNext()) {
+            JSONObject jc = (JSONObject) i.next();
+            if (jc.get("Client").equals(c) && jc.get("Sport").equals(s) && jc.get("WeekDay").equals(w)
+                    && jc.get("Time").equals(t))
+                i.remove();
+            //System.out.println(jsonArray);
+        }
+        JSONArray nv = Scrie(vector);
+        return nv;
+    }
 
     public void GoBackButton(ActionEvent event) throws IOException {
         Parent viewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxmlFiles/MainPage.fxml")));

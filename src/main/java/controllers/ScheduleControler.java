@@ -31,7 +31,7 @@ import users.Client;
 
 public class ScheduleControler implements Initializable {
     @FXML
-    private TableView<BSchedule> tableView;
+    TableView<BSchedule> tableView;
     @FXML
     private TableColumn<BSchedule, String> TimpColumn;
     @FXML
@@ -49,23 +49,24 @@ public class ScheduleControler implements Initializable {
     @FXML
     private TableColumn<BSchedule, String> DuminicaColumn;
     @FXML
-    private TextField TimeTextField;
+    TextField TimeTextField;
     @FXML
-    private TextField LuniTextField;
+    TextField LuniTextField;
     @FXML
-    private TextField MartiTextField;
+    TextField MartiTextField;
     @FXML
-    private TextField MiercuriTextField;
+    TextField MiercuriTextField;
     @FXML
-    private TextField JoiTextField;
+    TextField JoiTextField;
     @FXML
-    private TextField VineriTextField;
+    TextField VineriTextField;
     @FXML
-    private TextField SambataTextField;
+    TextField SambataTextField;
     @FXML
-    private TextField DuminicaTextField;
+    TextField DuminicaTextField;
 
-
+    public JSONArray arr1 = new JSONArray();
+    public String pathFinder = "src/main/resources/bigSchedule.json";
     @FXML
     public void AddToSchedule(){
         JSONObject objs = new JSONObject();
@@ -73,7 +74,7 @@ public class ScheduleControler implements Initializable {
         Object or;
         JSONArray arrays = new JSONArray();
         try {
-            FileReader read = new FileReader("src/main/resources/bigSchedule.json");
+            FileReader read = new FileReader(pathFinder);
             BufferedReader buffer = new BufferedReader(read);
             or = parsers.parse(buffer);
             if (or instanceof JSONArray) {
@@ -93,7 +94,7 @@ public class ScheduleControler implements Initializable {
         arrays.add(objs);
 
         try{
-            File file = new File("src/main/resources/bigSchedule.json");
+            File file = new File(pathFinder);
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
             fw.write(arrays.toJSONString());
             fw.close();
@@ -132,7 +133,7 @@ public class ScheduleControler implements Initializable {
         JSONArray array = new JSONArray();
 
         try {
-            FileReader readFile = new FileReader("src/main/resources/bigSchedule.json");
+            FileReader readFile = new FileReader(pathFinder);
             BufferedReader buffer = new BufferedReader(readFile);
             obj = parser.parse(buffer);
             if (obj instanceof JSONArray) {
@@ -158,32 +159,42 @@ public class ScheduleControler implements Initializable {
         String s4 = MiercuriTextField.getText();
         String s5 = JoiTextField.getText();
         String s6 = VineriTextField.getText();
-        String s7 = SambataTextField.getText();
+        String s7= SambataTextField.getText();
         String s8 = DuminicaTextField.getText();
 
 
         JSONParser parser = new JSONParser();
-        JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/bigSchedule.json"));
+        JSONArray jsonArray = (JSONArray) parser.parse(new FileReader(pathFinder));
 
-        Iterator<Object> is = jsonArray.iterator();
+        JSONArray njs = Sterge(jsonArray,s1,s2,s3,s4,s5,s6,s7,s8);
+
+    }
+
+
+    public JSONArray Scrie(JSONArray arr) {
+        try {
+            File file = new File(pathFinder);
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            fw.write(arr.toJSONString());
+            fw.close();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return arr;
+    }
+
+    public JSONArray Sterge(JSONArray ar,String t,String l,String ma,String mie,String j,String v,String sa,String d){
+
+        Iterator<Object> is = ar.iterator();
+
         while (is.hasNext()) {
             JSONObject js = (JSONObject) is.next();
-            if (js.get("Time").equals(s1) && js.get("Luni").equals(s2) && js.get("Marti").equals(s3)
-                    && js.get("Miercuri").equals(s4) && js.get("Joi").equals(s5) && js.get("Vineri").equals(s6) && js.get("Sambata").equals(s7) && js.get("Duminica").equals(s8)) ;
-
-            is.remove();
+            if ( js.get("Luni").equals(l) && js.get("Sambata").equals(sa) && js.get("Duminica").equals(d) && js.get("Miercuri").equals(mie) && js.get("Joi").equals(j) && js.get("Viner").equals(v) && js.get("Marti").equals(ma)&&js.get("Time").equals(t))
+                is.remove();
         }
-            try {
-                File file = new File("src/main/resources/bigSchedule.json");
-                FileWriter fw = new FileWriter(file.getAbsoluteFile());
-                fw.write(jsonArray.toJSONString());
-                fw.close();
-                fw.flush();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-
-
+        JSONArray nr = Scrie(ar);
+        return nr;
     }
     @FXML
     void GoBackActionButton(ActionEvent event) throws IOException {
