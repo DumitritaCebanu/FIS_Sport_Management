@@ -54,12 +54,16 @@ public class PersonalScheduleController implements Initializable {
     private TableColumn<Table, String> time;
 
     @FXML
-    private Button AddButton;
+    public Button AddButton;
 
     @FXML
-    private Button DeleteButton;
+    public Button DeleteButton;
     @FXML
     private Button returnButton;
+
+    public JSONArray array_init = new JSONArray();
+
+    public  String FilePath = "src/main/resources/client1_tabel.json";
 
     @Override
     public void initialize(URL location, ResourceBundle rb) {
@@ -96,7 +100,7 @@ public class PersonalScheduleController implements Initializable {
         JSONArray array = new JSONArray();
 
         try{
-            FileReader readFile = new FileReader("src/main/resources/client1_tabel.json");
+            FileReader readFile = new FileReader(FilePath);
             BufferedReader buffread = new BufferedReader(readFile);
             obj = parser.parse(buffread);
             if(obj instanceof JSONArray){
@@ -118,11 +122,11 @@ public class PersonalScheduleController implements Initializable {
         JSONObject obj = new JSONObject();
         Object p;
         JSONParser parser = new JSONParser();
-        JSONArray list = new JSONArray();
+        JSONArray list = array_init;
 
     //Copiere continut deja existent cu Parser
         try{
-            FileReader readFile = new FileReader("src/main/resources/client1_tabel.json");
+            FileReader readFile = new FileReader(FilePath);
             BufferedReader read = new BufferedReader(readFile);
             p = parser.parse(read);
             if(p instanceof JSONArray)
@@ -140,21 +144,14 @@ public class PersonalScheduleController implements Initializable {
         list.add(obj);
 
         //Scriere in fisier
-            try {
-                File file = new File("src/main/resources/client1_tabel.json");
-                FileWriter fw = new FileWriter(file.getAbsoluteFile());
-                fw.write(list.toJSONString());
-                fw.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            JSONArray newlist = Write(list);
 
         //cand le adaug in fisier le arat si in tabel
         JSONParser parserr = new JSONParser();
         Object objj;
         JSONArray array = new JSONArray();
         try {
-            FileReader readFile = new FileReader("src/main/resources/client1_tabel.json");
+            FileReader readFile = new FileReader(FilePath);
             BufferedReader buffread = new BufferedReader(readFile);
             objj = parserr.parse(buffread);
             if (objj instanceof JSONArray) {
@@ -171,6 +168,7 @@ public class PersonalScheduleController implements Initializable {
         dayInput.clear();
         trainingInput.clear();
         timeInput.clear();
+
     }
 
     //Delete button clicked
@@ -183,26 +181,10 @@ public class PersonalScheduleController implements Initializable {
         String match3 = timeInput.getText();
 
         JSONParser parser = new JSONParser();
-        JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/client1_tabel.json"));
+        JSONArray jsonArray = (JSONArray) parser.parse(new FileReader(FilePath));
 
-        Iterator<Object> iter = jsonArray.iterator();
-
-        while (iter.hasNext()) {
-            JSONObject jo = (JSONObject) iter.next();
-            if(jo.get("Training").equals(match1) && jo.get("Time").equals(match3) && jo.get("Day").equals(match2))
-                iter.remove();
-            DeleteMessage.setText("Training deleted! Please go back and return to see the changes");
-             }
-
-        //Scriere in fisier
-        try{
-            File file = new File("src/main/resources/client1_tabel.json");
-            FileWriter fw = new FileWriter(file.getAbsoluteFile());
-            fw.write(jsonArray.toJSONString());
-            fw.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        //Stergere din fisier
+        JSONArray newArray = Delete(jsonArray, match1, match2, match3);
 
         dayInput.clear();
         trainingInput.clear();
@@ -219,6 +201,35 @@ public class PersonalScheduleController implements Initializable {
 
         window.setScene(viewScene);
         window.show();
+    }
+
+    public JSONArray Write(JSONArray array){
+        try {
+            File file = new File(FilePath);
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            fw.write(array.toJSONString());
+            fw.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return  array;
+    }
+
+    public JSONArray Delete( JSONArray array, String match_training, String match_day, String match_time){
+
+        Iterator<Object> iter = array.iterator();
+
+        while (iter.hasNext()) {
+            JSONObject jo = (JSONObject) iter.next();
+            if(jo.get("Training").equals(match_training) && jo.get("Time").equals(match_time) && jo.get("Day").equals(match_day))
+                iter.remove();
+            DeleteMessage.setText("Training deleted! Please go back and return to see the changes");
+        }
+
+        //Scriere in fisier
+        JSONArray newArray = Write(array);
+
+        return newArray;
     }
 }
 

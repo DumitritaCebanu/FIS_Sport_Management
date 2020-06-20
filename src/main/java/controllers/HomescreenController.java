@@ -37,7 +37,7 @@ public class HomescreenController implements Initializable {
 
     // deschide pagina cu orarul clientuluia
     @FXML
-    void handleActionButton() {
+    boolean handleActionButton() {
         if (LoginController.verify.equals("9clt"))
             try {
                 Parent viewParent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("fxmlFiles/personalSchedule.fxml")));
@@ -60,6 +60,7 @@ public class HomescreenController implements Initializable {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+    return true;
     }
 
 
