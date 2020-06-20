@@ -50,7 +50,7 @@ public class AMSControlerTest extends ApplicationTest {
         controller.SportTypeField.setText(TEST_SPORT);
         controller.WeekTypeField.setText(TEST_WEEK);
         controller.TimeTypeField.setText(TEST_TIME);
-        controller.dndpath = "src/resources/clientTabel.json";
+        controller.dndpath = "src/test/resources/clientTabel.json";
     }
 
     @Test
