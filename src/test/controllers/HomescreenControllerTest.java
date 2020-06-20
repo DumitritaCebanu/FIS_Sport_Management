@@ -5,9 +5,6 @@ import javafx.scene.control.Button;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.event.ActionEvent;
-
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class HomescreenControllerTest {
